@@ -63,6 +63,15 @@ module TrackerApi
       request(:post, parse_query_and_convenience_headers(path, options))
     end
 
+    # Make an HTTP DELETE request
+    #
+    # @param path [String] The path, relative to api endpoint
+    # @param options [Hash] Query and header params for request
+    # @return [Faraday::Response]
+    def post(path, options = {})
+      request(:delete, parse_query_and_convenience_headers(path, options))
+    end
+
     # Make a HTTP PUT request
     #
     # @param path [String] The path, relative to api endpoint
@@ -186,7 +195,7 @@ module TrackerApi
       body    = options[:body]
       headers = options[:headers]
 
-      if (method == :post || method == :put) && options[:body].blank?
+      if (method == :post || method == :put || method == :delete) && options[:body].blank?
         body                    = Oj.dump(params)
         headers['Content-Type'] = 'application/json'
 

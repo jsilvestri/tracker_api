@@ -22,8 +22,17 @@ module TrackerApi
         Resources::Label.new({ project_id: project_id }.merge(data))
       end
 
-      def add_to_story(project_id, story_id, params={})
+      def add_to_story(project_id, story_id, label_name = nil, params={})
+        unless params['name'] || params[:name]
+          params['name'] = label_name
+        end
         data = client.post("/projects/#{project_id}/stories/#{story_id}/labels", params: params).body
+
+        Resources::Label.new({ project_id: project_id }.merge(data))
+      end
+
+      def delete_from_story(project_id, story_id, label_id, params={})
+        data = client.delete("/projects/#{project_id}/stories/#{story_id}/labels/#{label_id}", params: params).body
 
         Resources::Label.new({ project_id: project_id }.merge(data))
       end
