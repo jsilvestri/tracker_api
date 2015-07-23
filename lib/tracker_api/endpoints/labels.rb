@@ -24,7 +24,7 @@ module TrackerApi
 
       def add_to_story(project_id, story_id, label_name = nil, params={})
         unless params['name'] || params[:name]
-          params['name'] = label_name
+          params[:name] = label_name
         end
         data = client.post("/projects/#{project_id}/stories/#{story_id}/labels", params: params).body
 
