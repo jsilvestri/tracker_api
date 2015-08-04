@@ -68,7 +68,7 @@ module TrackerApi
     # @param path [String] The path, relative to api endpoint
     # @param options [Hash] Query and header params for request
     # @return [Faraday::Response]
-    def post(path, options = {})
+    def delete(path, options = {})
       request(:delete, parse_query_and_convenience_headers(path, options))
     end
 
